@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
-import { styled, keyframes } from '@mui/material/styles';
+import { Box, Typography, Paper, Button, useMediaQuery } from '@mui/material';
+import { styled, keyframes, useTheme } from '@mui/material/styles';
 
 // Keyframe animations
 const heartbeat = keyframes`
@@ -118,6 +118,16 @@ const HeartSeal = styled(Box)(({ isHovered }) => ({
   opacity: isHovered ? 0 : 1,
 }));
 
+const OpenButton = styled(Button) ({
+  position: 'absolute',
+  bottom: '20px',
+  left: '40%',
+  zIndex: 1,
+  color: '#fff',
+  display: 'block',
+  backgroundColor: '#743333'
+})
+
 const CardWrapper = styled(Box)(({ isHovered }) => ({
   position: 'absolute',
   top: 0,
@@ -227,8 +237,11 @@ const Instruction = styled(Typography)({
   zIndex: 0,
 });
 
+
 const ValentineCard = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <>
@@ -237,7 +250,11 @@ const ValentineCard = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <EnvelopeBody />
+        <EnvelopeBody >
+          {isMobile && (
+            <OpenButton>Open</OpenButton>
+          )}   
+        </EnvelopeBody>
         <EnvelopeLid isHovered={isHovered} />
         <HeartSeal isHovered={isHovered}>💌</HeartSeal>
         <CardWrapper isHovered={isHovered}>
@@ -263,7 +280,7 @@ const ValentineCard = () => {
           </Card>
         </CardWrapper>
       </EnvelopeContainer>
-      <Instruction>Hover over the envelope to open 💝</Instruction>
+      <Instruction>Click the envelope to open 💝</Instruction>
     </>
   );
 };
