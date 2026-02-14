@@ -241,7 +241,7 @@ const Instruction = styled(Typography)({
 const ValentineCard = () => {
   const [isHovered, setIsHovered] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <>
